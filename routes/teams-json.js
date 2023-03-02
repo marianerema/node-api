@@ -45,11 +45,12 @@ router.post("/create", function (req, res, next) {
 router.delete("/delete", function (req, res, next) {
   const id = req.body.id;
 
-  const teams = getTeams().filter(team => team.id != id);
+  const initialTeams = getTeams();
+  const teams = initialTeams.filter(team => team.id != id);
 
   setTeams(teams);
 
-  res.json({ success: true });
+  res.json({ success: teams.length < initialTeams.length });
 });
 
 /**
